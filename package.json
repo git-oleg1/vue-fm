@@ -1,13 +1,13 @@
 {
-  "name": "vuefinder",
+  "name": "vue-fm",
   "version": "1.1.15",
   "description": "Vuefinder is a file manager component for vuejs.",
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/vuefinder.cjs",
-  "module": "./dist/vuefinder.js",
+  "main": "./dist/vue-fm.cjs",
+  "module": "./dist/vue-fm.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

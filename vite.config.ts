@@ -9,7 +9,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.js'),
       name: 'VueFinder',
       // the proper extensions will be added
-      fileName: 'vuefinder',
+      fileName: 'vue-fm',
     },
     watch: {},
     rollupOptions: {
