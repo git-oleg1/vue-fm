@@ -32,6 +32,7 @@ const props = defineProps({
   selection: Object
 });
 
+const accessToken = inject('accessToken');
 const {t} = inject('i18n');
 const {apiUrl} = useApiUrl();
 
@@ -74,7 +75,8 @@ const crop = () => {
                 file: blob
               }),
               name: props.selection.item.basename,
-              json: false
+              json: false,
+              headers: {'Authorization': accessToken ? 'Bearer ' + accessToken : null}
             })
                 .then(data => {
                   message.value = t('Updated.');

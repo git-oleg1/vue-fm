@@ -1,14 +1,16 @@
 export const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
-export default (url, {method = 'get', params = {}, json = true, signal = null}) => {
+export default (url, {method = 'get', params = {}, json = true, signal = null, headers = {}}) => {
     const init = {method: method};
     init.signal = signal;
+
+    init.headers = {};
+
+    Object.assign(init.headers, headers);
 
     if (method == 'get') {
         url += '?' + new URLSearchParams(params);
     } else {
-        init.headers = {};
-
         if (csrf) {
             init.headers['X-CSRF-Token'] = csrf;
         }

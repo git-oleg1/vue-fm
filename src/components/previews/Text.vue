@@ -43,11 +43,12 @@ const message = ref('');
 const isError = ref(false);
 
 const {t} = inject('i18n');
-
+const accessToken = inject('accessToken');
 onMounted(() => {
   ajax(apiUrl.value, {
     params: {q: 'preview', adapter: props.selection.adapter, path: props.selection.item.path},
-    json: false
+    json: false,
+    headers: {'Authorization': accessToken ? 'Bearer ' + accessToken : null}
   })
       .then(data => {
         content.value = data;
@@ -80,6 +81,7 @@ const save = () => {
       content: contentTemp.value
     }),
     json: false,
+    headers: {'Authorization': accessToken ? 'Bearer ' + accessToken : null}
   })
       .then(data => {
         message.value = t('Updated.');

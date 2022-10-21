@@ -54,7 +54,7 @@ import {csrf} from '../../utils/ajax.js';
 const emitter = inject('emitter');
 const {apiUrl} = useApiUrl();
 const {t} = inject('i18n');
-
+const accessToken = inject('accessToken');
 const props = defineProps({
   current: Object
 });
@@ -79,7 +79,7 @@ onMounted(() => {
     runtimes: 'html5',
     browse_button: pickFiles.value,
     container: container.value,
-    max_file_size: '10mb',
+    max_file_size: '2Gb',
     multiple_queues: true,
     file_data_name: 'file',
     url: apiUrl.value + '?' + buildURLQuery(Object.assign(postData, {q: 'upload', adapter: props.current.adapter, path: props.current.dirname})),
@@ -88,7 +88,8 @@ onMounted(() => {
     // 	{title : "Zip files", extensions : "zip"}
     // ],
     headers: {
-      ...(csrf && {'X-CSRF-Token' : csrf})
+      ...(csrf && {'X-CSRF-Token' : csrf}),
+      'Authorization': accessToken ? 'Bearer ' + accessToken : null
     },
 
     init: {

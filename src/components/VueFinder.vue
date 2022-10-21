@@ -61,6 +61,14 @@ const props = defineProps({
   postData: {
     type: Object,
     default: {}
+  },
+  accessToken: {
+    type: String
+  },
+  hook: {
+    type: Function,
+    required: false,
+    default: null,
   }
 });
 const emitter = mitt();
@@ -94,6 +102,7 @@ emitter.on('vf-darkMode-toggle', () => {
 const loadingState = ref(false);
 
 provide('loadingState', loadingState);
+provide('accessToken', props.accessToken);
 
 const fullScreen = ref(getStore('full-screen', false));
 
@@ -118,9 +127,11 @@ emitter.on('vf-modal-close', () => {
 });
 
 emitter.on('vf-modal-show', (item) => {
-  modal.active = true;
-  modal.type = item.type;
-  modal.data = item;
+  if (!props.hook || false !== props.hook.call(null, 'vf-modal-show', item, emitter)) {
+    modal.active = true;
+    modal.type = item.type;
+    modal.data = item;
+  }
 });
 
 const updateItems = (data) => {
@@ -145,7 +156,7 @@ emitter.on('vf-fetch', ({params, onSuccess = null, onError = null}) => {
 
   controller = new AbortController();
   const signal = controller.signal;
-  ajax(apiUrl.value, {params, signal})
+  ajax(apiUrl.value, {params, signal, headers: {'Authorization': props.accessToken ? 'Bearer ' + props.accessToken : null}})
       .then(data => {
         adapter.value = data.adapter;
         if (['index', 'search'].includes(params.q)) {
