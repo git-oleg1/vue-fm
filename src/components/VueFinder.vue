@@ -146,6 +146,12 @@ emitter.on('vf-fetch-abort', () => {
   loadingState.value = false;
 });
 
+const showHiddenEnabled = ref(false);
+emitter.on('vf-show-hidden', ({params}) => {
+  showHiddenEnabled.value = params.show;
+  emitter.emit('vf-fetch', {params});
+});
+
 emitter.on('vf-fetch', ({params, onSuccess = null, onError = null}) => {
   if (['index', 'search'].includes(params.q)) {
     if (controller) {
@@ -156,6 +162,8 @@ emitter.on('vf-fetch', ({params, onSuccess = null, onError = null}) => {
 
   controller = new AbortController();
   const signal = controller.signal;
+  params.hidden = showHiddenEnabled.value === true;
+
   ajax(apiUrl.value, {params, signal, headers: {'Authorization': props.accessToken ? 'Bearer ' + props.accessToken : null}})
       .then(data => {
         adapter.value = data.adapter;

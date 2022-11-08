@@ -43,3 +43,7 @@
 
 @tailwind utilities;
 
+
+.vf-flex-space {
+  flex: 1;
+}
