@@ -22,6 +22,8 @@
       </svg>
     </span>
 
+    <span class="vf-flex-space"></span>
+
     <div v-if="!searchMode" class="group flex bg-white dark:bg-gray-700 items-center rounded p-1 ml-2 w-full" @click.self="enterSearchMode">
       <svg @click="emitter.emit('vf-fetch', {params:{q: 'index', adapter: data.adapter}})"
            class="h-6 w-6 p-1 rounded text-slate-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-gray-800 cursor-pointer"
@@ -48,7 +50,7 @@
            xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 20 20" fill="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
       </svg>
-      <!-- <div class="w-full"></div> -->
+      
       <input
           ref="searchInput"
           @keydown.esc="exitSearchMode"
