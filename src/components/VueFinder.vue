@@ -147,15 +147,10 @@ emitter.on('vf-fetch-abort', () => {
 });
 
 const showHiddenEnabled = ref(false);
-<<<<<<< HEAD
+
 emitter.on('vf-show-hidden-toggle', () => {
   showHiddenEnabled.value = !showHiddenEnabled.value;
   emitter.emit('vf-fetch', {params:{q: 'index', adapter: fetchData.adapter, path: fetchData.dirname}});
-=======
-emitter.on('vf-show-hidden', ({params}) => {
-  showHiddenEnabled.value = params.show;
-  emitter.emit('vf-fetch', {params});
->>>>>>> master
 });
 
 emitter.on('vf-fetch', ({params, onSuccess = null, onError = null}) => {
