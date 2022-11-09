@@ -23,6 +23,18 @@
     </span>
 
     <span class="vf-flex-space"></span>
+<<<<<<< HEAD
+=======
+    
+    <template v-if="!isLoading()">
+      <span @click="emitter.emit('vf-show-hidden',{params:{q: 'index', adapter: data.adapter, path: data.dirname, show: true}} );" aria-label="Показать" data-microtip-position="bottom-right" role="tooltip" v-if="showHiddenEnabled === false" style="cursor: pointer;">
+        Показать все
+      </span>
+      <span @click="emitter.emit('vf-show-hidden',{params:{q: 'index', adapter: data.adapter, path: data.dirname, show: false}} );" aria-label="Спрятать" data-microtip-position="bottom-right" role="tooltip" v-else style="cursor: pointer;">
+        Спрятать качество
+      </span>
+    </template>
+>>>>>>> master
 
     <div v-if="!searchMode" class="group flex bg-white dark:bg-gray-700 items-center rounded p-1 ml-2 w-full" @click.self="enterSearchMode">
       <svg @click="emitter.emit('vf-fetch', {params:{q: 'index', adapter: data.adapter}})"
@@ -124,6 +136,11 @@ emitter.on('vf-explorer-update', () => {
   }
 
   breadcrumb.value = links;
+});
+
+const showHiddenEnabled = ref(false);
+emitter.on('vf-show-hidden', ({params}) => {
+  showHiddenEnabled.value = params.show;
 });
 
 const exitSearchMode = () => {

@@ -5,6 +5,7 @@
       <div @click="sortBy('basename')" class="col-span-7 py-1 leading-6 hover:bg-neutral-100 bg-neutral-50 dark:bg-gray-800 dark:hover:bg-gray-700/10 flex items-center pl-1">
         {{ t('Name') }}
           <v-f-sort-icon :direction="sort.order=='asc'? 'down': 'up'" v-show="sort.active && sort.column=='basename'" />
+<<<<<<< HEAD
       </div>
       <div v-if="!searchQuery.length" @click="sortBy('file_size')" class="col-span-2 py-1 leading-6 hover:bg-neutral-100 bg-neutral-50 dark:bg-gray-800 dark:hover:bg-gray-700/10 flex items-center justify-center border-l border-r dark:border-gray-700">
         {{ t('Size') }}
@@ -18,6 +19,21 @@
         {{ t('Filepath') }}
           <v-f-sort-icon :direction="sort.order=='asc'? 'down': 'up'"  v-show="sort.active && sort.column=='path'" />
       </div>
+=======
+      </div>
+      <div v-if="!searchQuery.length" @click="sortBy('file_size')" class="col-span-2 py-1 leading-6 hover:bg-neutral-100 bg-neutral-50 dark:bg-gray-800 dark:hover:bg-gray-700/10 flex items-center justify-center border-l border-r dark:border-gray-700">
+        {{ t('Size') }}
+        <v-f-sort-icon :direction="sort.order=='asc'? 'down': 'up'"  v-show="sort.active && sort.column=='file_size'" />
+      </div>
+      <div v-if="!searchQuery.length" @click="sortBy('last_modified')" class="col-span-3 py-1 leading-6 hover:bg-neutral-100 bg-neutral-50 dark:bg-gray-800 dark:hover:bg-gray-700/10 flex items-center justify-center">
+        {{ t('Date') }}
+        <v-f-sort-icon :direction="sort.order=='asc'? 'down': 'up'"  v-show="sort.active && sort.column=='last_modified'" />
+      </div>
+      <div v-if="searchQuery.length" @click="sortBy('path')" class="col-span-5 py-1 leading-6 hover:bg-neutral-100 bg-neutral-50 dark:bg-gray-800 dark:hover:bg-gray-700/10 flex items-center justify-center border-l dark:border-gray-700">
+        {{ t('Filepath') }}
+          <v-f-sort-icon :direction="sort.order=='asc'? 'down': 'up'"  v-show="sort.active && sort.column=='path'" />
+      </div>
+>>>>>>> master
     </div>
 
     <!-- <div class="absolute">
@@ -184,6 +200,11 @@ emitter.on('vf-search-query', ({newQuery}) => {
   } else {
     emitter.emit('vf-fetch', {params:{q: 'index', adapter: props.data.adapter, path: props.data.dirname}});
   }
+});
+
+const showHiddenEnabled = ref(false);
+emitter.on('vf-show-hidden', ({params}) => {
+  showHiddenEnabled.value = params.show;
 });
 
 let touchTimeOut = null;
